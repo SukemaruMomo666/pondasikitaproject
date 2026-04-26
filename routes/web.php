@@ -60,18 +60,18 @@ Route::post('/lupa-password', [ForgotPasswordController::class, 'sendResetLinkEm
 
     // Keranjang Belanja
     Route::get('/pages/keranjang', 'keranjang')->name('keranjang.index');
-    Route::post('/api/keranjang/tambah', 'tambahKeranjang')->name('keranjang.tambah');
+
     Route::post('/api/keranjang/update', 'updateKeranjang')->name('keranjang.update');
     Route::post('/api/keranjang/hapus', 'hapusKeranjang')->name('keranjang.hapus');
-    
+
 Route::middleware(['auth'])->group(function () {
-    
+
     // Rute untuk tombol "+ Keranjang" (AJAX JSON)
     Route::post('/keranjang/tambah', [KeranjangController::class, 'tambah'])->name('keranjang.tambah');
-    
+
     // Rute untuk tombol "Beli Sekarang" (Form Submit)
     Route::post('/checkout/langsung', [KeranjangController::class, 'checkoutLangsung'])->name('checkout.langsung');
-    
+
 });
     // Checkout
     Route::match(['get', 'post'], '/checkout', 'checkout')->name('checkout');
@@ -183,7 +183,7 @@ Route::middleware(['auth', 'role:seller'])->prefix('seller')->name('seller.')->g
         Route::get('/decoration/editor-desktop', [ShopController::class, 'editorDesktop'])->name('decoration.editor.desktop');
         Route::get('/decoration/template', [ShopController::class, 'templateSelection'])->name('decoration.template');
         Route::post('/decoration/update', [ShopController::class, 'updateDecoration'])->name('decoration.update');
-        
+
         // ✅ INI RUTE SAKTI YANG BARU SAJA DITAMBAHKAN
         Route::post('/decoration/save', [ShopController::class, 'saveDecoration'])->name('decoration.save');
 
@@ -210,7 +210,7 @@ Route::prefix('portal-rahasia-pks')->name('admin.')->middleware(['admin'])->grou
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])
         ->name('dashboard')
         ->middleware('admin.role:super,finance,cs');
-        
+
     // PERBAIKAN: Name cukup ditulis 'dashboard.top_stores' karena grup sudah punya awalan 'admin.'
     Route::get('/dashboard/top-stores', [AdminDashboardController::class, 'topStores'])
         ->name('dashboard.top_stores')
